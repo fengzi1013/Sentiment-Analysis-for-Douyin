@@ -34,10 +34,10 @@ parms = {
     'n_classes': 3, # 类别数量
     'logger_steps': 50, # 验证步数
     'drop_rate': 0.3,  # 丢失率
-    'pretrain_file': "E:/Code/Pretrain/zh/bert-base-chinese",  # 预训练模型,自己提前下载到本地
+    'pretrain_file': "./bert-base-chinese",  # 预训练模型
     'data_file': './data', # 数据读取和保存文件
-    'raw_data': '/DY.csv', # 原始数据文件
-    'save_file': '/save' # 保存文件
+    'raw_data': './DY.csv', # 原始数据文件
+    'save_file': './save' # 保存文件
 }
 
 if not os.path.exists(parms['data_file'] + parms['save_file']):
@@ -46,7 +46,7 @@ if not os.path.exists(parms['data_file'] + parms['save_file']):
 start_time = time.time()
 # 数据loading                         train: val: test: = 8: 1: 1
 texts = pd.read_csv(parms["data_file"] + parms['raw_data'])
-texts, labels = texts['评论内容'].tolist(), (texts['label'] + 1).tolist()
+texts, labels = texts['text'].tolist(), (texts['label'] + 1).tolist()
 x_train, x_test, y_train, y_test = train_test_split(texts, labels, test_size=0.2, random_state=1234, stratify=labels)
 x_val, x_test, y_val, y_test = train_test_split(x_test, y_test, test_size=0.5, random_state=1234, stratify=y_test)
 
